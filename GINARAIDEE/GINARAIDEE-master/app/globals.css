@@ -1,0 +1,103 @@
+
+@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --foreground-rgb: 0, 0, 0;
+    --background-start-rgb: 255, 222, 173;
+    --background-end-rgb: 255, 222, 173;
+  }
+
+  .dark {
+    --foreground-rgb: 255, 165, 0;
+    --background-start-rgb: 24, 24, 27;
+    --background-end-rgb: 24, 24, 27;
+  }
+
+  body {
+    @apply text-base leading-relaxed;
+    color: rgb(var(--foreground-rgb));
+    background: linear-gradient(
+            to bottom,
+            transparent,
+            rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+  }
+
+  .theme-switch {
+    --toggle-size: 1.625rem;
+    --container-width: 5.625em;
+    --container-height: 2.5em;
+    --container-radius: 6.25em;
+    --container-light-bg: #3D7EAE;
+    --container-night-bg: #1D1F2C;
+    --circle-container-diameter: 3.375em;
+    --sun-moon-diameter: 2.125em;
+    --sun-bg: #ECCA2F;
+    --moon-bg: #C4C9D1;
+    --spot-color: #959DB1;
+    --circle-container-offset: calc((var(--circle-container-diameter) - var(--container-height)) / 2 * -1);
+    --stars-color: #fff;
+    --clouds-color: #F3FDFF;
+    --back-clouds-color: #AACADF;
+    font-size: var(--toggle-size);
+  }
+}
+
+@layer components {
+  /* Card Hover Effect - Responsive */
+  .card {
+    @apply relative w-full rounded-lg overflow-hidden shadow-md bg-gray-100 transition-transform duration-500;
+    aspect-ratio: 3 / 2;
+    perspective: 1000px;
+  }
+
+  .card img {
+    @apply w-full h-full object-cover transition-transform duration-500;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .card__content {
+    @apply absolute top-0 left-0 w-full h-full p-5 flex flex-col items-center justify-center rounded-lg;
+    background-color: #f7e8b7;
+    transform: rotateX(-90deg);
+    transform-origin: bottom;
+    transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+
+  .card:hover .card__content {
+    transform: rotateX(0deg);
+  }
+
+  .card__title {
+    @apply text-xl font-bold text-gray-800;
+  }
+
+  .card__description {
+    @apply text-sm text-gray-600 mt-2 text-center leading-snug;
+  }
+
+  /* Food animation */
+  @keyframes food-spin {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-1000px);
+    }
+  }
+
+  .animate-food-spin {
+    animation: food-spin 5s ease-in-out forwards;
+  }
+}
+
+/*ใช้ max-w-[value] และ sm:, md:, lg:*/
